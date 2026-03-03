@@ -151,7 +151,7 @@ export default function Sidebar() {
               className={`absolute transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
                 theme === "light"
                   ? "rotate-0 scale-100 opacity-100 text-amber-600"
-                  : "rotate-[360deg] scale-0 opacity-0 text-amber-400"
+                  : "rotate-360 scale-0 opacity-0 text-amber-400"
               }`}
             />
             <Moon
@@ -160,7 +160,7 @@ export default function Sidebar() {
               className={`absolute transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
                 theme === "dark"
                   ? "rotate-0 scale-100 opacity-100 text-indigo-300"
-                  : "-rotate-[360deg] scale-0 opacity-0 text-indigo-600"
+                  : "-rotate-360 scale-0 opacity-0 text-indigo-600"
               }`}
             />
           </div>

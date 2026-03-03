@@ -5,6 +5,7 @@ import { LuCheck, LuEye } from "react-icons/lu";
 import { FaApple, FaMeta, FaStar } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { RiEyeCloseLine } from "react-icons/ri";
+import Image from "next/image";
 
 const features = [
   "Effortlessly spider and map targets to uncover hidden security flaws",
@@ -64,10 +65,16 @@ export default function SignUpPage() {
       />
 
       {/* ── Logo ── */}
-      <div className="absolute left-5 top-5 z-20 flex items-center gap-2 sm:left-8 sm:top-8 lg:left-12 lg:top-10">
-        <span className="block h-3.5 w-3.5 rounded-full border-[2.5px] border-[#0CC8A8] bg-[#0CC8A8] shadow-[0_0_6px_rgba(12,200,168,0.4)]" />
-        <span className="text-lg font-bold tracking-tight text-white">aps</span>
-      </div>
+    <div className="absolute left-5 top-5 z-20 flex items-center gap-2 sm:left-8 sm:top-8 lg:left-12 lg:top-10">
+      <Image
+        src={"/logo.png"}
+        width={24}
+        height={24}
+        alt="The Logo"
+        priority
+      />
+      <span className="text-lg font-bold tracking-tight text-white">aps</span>
+    </div>
 
       {/* ── Main Content (YOUR EXACT UI) ── */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-335 items-center px-5 py-20 sm:px-8 lg:px-14">
