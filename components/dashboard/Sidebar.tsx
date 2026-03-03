@@ -204,17 +204,16 @@ export default function Sidebar() {
       <div className="border-t border-gray-200 p-3 dark:border-white/10">
         <Tip text="Account settings">
           <button className="group flex w-full items-center gap-3 rounded-lg px-2 py-2 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-white/5">
-            <div className="flex h-10 w-10 overflow-hidden rounded-full shadow-md">
+            <div className="flex h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100 shadow-md dark:bg-gray-800">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://api.dicebear.com/7.x/lorelei/svg?seed=noobmaster69"
+                src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Chase"
                 alt="Profile"
-                className="h-full w-full object-cover rounded-full"
+                className="h-full w-full object-cover"
               />
-              
             </div>
             <div className="flex-1 text-left">
-              <p className="text-[12px] font-medium leading-tight text-gray-700 dark:text-gray-300">
+              <p className="border-none text-[12px] font-medium leading-tight text-gray-700 dark:text-gray-300">
                 noobmaster69@lol.dev
               </p>
               <p className="text-[11px] text-gray-400 dark:text-gray-500">
