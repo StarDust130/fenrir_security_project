@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "./ThemeProvider";
 import {
@@ -14,9 +14,15 @@ import {
   ChevronRight,
   Sun,
   Moon,
-  Menu,
   X,
+  Sparkles,
 } from "lucide-react";
+
+/* ─── Event emitter so TopBar can open mobile sidebar ─── */
+let openSidebarCallbacks: Array<() => void> = [];
+export function triggerOpenSidebar() {
+  openSidebarCallbacks.forEach((cb) => cb());
+}
 
 const mainNav = [
   {
@@ -52,6 +58,15 @@ function Tip({ text, children }: { text: string; children: React.ReactNode }) {
 export default function Sidebar() {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  /* Listen for TopBar hamburger clicks */
+  useEffect(() => {
+    const cb = () => setMobileOpen(true);
+    openSidebarCallbacks.push(cb);
+    return () => {
+      openSidebarCallbacks = openSidebarCallbacks.filter((c) => c !== cb);
+    };
+  }, []);
 
   const sidebarContent = (
     <div className="flex h-full flex-col border-r border-gray-200/60 bg-white text-gray-800 transition-colors duration-300 dark:border-white/5 dark:bg-[#0f1419] dark:text-white">
@@ -107,46 +122,86 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Theme Toggle — pill slider */}
+      {/* ─── Theme Toggle — animated gradient card ─── */}
       <div className="px-3 pb-2">
-        <Tip text={theme === "dark" ? "Switch to Light" : "Switch to Dark"}>
-          <button
-            onClick={toggleTheme}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-gray-500 transition-all duration-200 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200"
-          >
-            {/* Pill track */}
-            <div className="relative flex h-6 w-11 items-center rounded-full bg-gray-200 p-0.5 transition-colors duration-300 dark:bg-white/15">
-              {/* Sliding knob */}
-              <div
-                className={`flex h-5 w-5 items-center justify-center rounded-full bg-white shadow transition-all duration-300 dark:bg-[#0CC8A8] ${
-                  theme === "dark" ? "translate-x-5" : "translate-x-0"
-                }`}
-              >
-                <Sun
-                  size={12}
-                  strokeWidth={2.5}
-                  className={`absolute transition-all duration-300 ${
-                    theme === "light"
-                      ? "rotate-0 scale-100 opacity-100 text-amber-500"
-                      : "-rotate-90 scale-0 opacity-0"
-                  }`}
-                />
-                <Moon
-                  size={12}
-                  strokeWidth={2.5}
-                  className={`absolute transition-all duration-300 ${
-                    theme === "dark"
-                      ? "rotate-0 scale-100 opacity-100 text-white"
-                      : "rotate-90 scale-0 opacity-0"
-                  }`}
-                />
-              </div>
-            </div>
-            <span className="text-[12.5px]">
-              {theme === "dark" ? "Dark" : "Light"}
+        <button
+          onClick={toggleTheme}
+          className="group relative flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-xl p-3 transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
+          style={{
+            background:
+              theme === "dark"
+                ? "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"
+                : "linear-gradient(135deg, #fef9c3 0%, #fde68a 50%, #fbbf24 100%)",
+          }}
+        >
+          {/* Animated shimmer on hover */}
+          <div
+            className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
+              theme === "dark"
+                ? "bg-linear-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20"
+                : "bg-linear-to-r from-amber-300/30 via-orange-300/30 to-yellow-300/30"
+            }`}
+          />
+
+          {/* Icon with rotation animation */}
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 backdrop-blur-sm">
+            <Sun
+              size={20}
+              strokeWidth={2}
+              className={`absolute transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
+                theme === "light"
+                  ? "rotate-0 scale-100 opacity-100 text-amber-600"
+                  : "rotate-[360deg] scale-0 opacity-0 text-amber-400"
+              }`}
+            />
+            <Moon
+              size={20}
+              strokeWidth={2}
+              className={`absolute transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
+                theme === "dark"
+                  ? "rotate-0 scale-100 opacity-100 text-indigo-300"
+                  : "-rotate-[360deg] scale-0 opacity-0 text-indigo-600"
+              }`}
+            />
+          </div>
+
+          {/* Label + subtitle */}
+          <div className="relative flex flex-col items-start">
+            <span
+              className={`text-[12px] font-bold leading-tight transition-colors duration-300 ${
+                theme === "dark" ? "text-indigo-200" : "text-amber-800"
+              }`}
+            >
+              {theme === "dark" ? "Dark Mode" : "Light Mode"}
             </span>
-          </button>
-        </Tip>
+            <span
+              className={`flex items-center gap-1 text-[10px] leading-tight transition-colors duration-300 ${
+                theme === "dark" ? "text-indigo-400/70" : "text-amber-600/70"
+              }`}
+            >
+              <Sparkles size={9} />
+              Tap to switch
+            </span>
+          </div>
+
+          {/* Decorative dots */}
+          <div className="absolute right-3 top-2">
+            <div
+              className={`h-1 w-1 rounded-full transition-all duration-700 ${
+                theme === "dark"
+                  ? "bg-white/40 shadow-[4px_6px_0_0_rgba(255,255,255,0.2),8px_2px_0_0_rgba(255,255,255,0.15),-2px_8px_0_0_rgba(255,255,255,0.1)]"
+                  : "bg-orange-400/50 shadow-[4px_6px_0_0_rgba(251,191,36,0.3),8px_2px_0_0_rgba(251,191,36,0.2),-2px_8px_0_0_rgba(251,191,36,0.15)]"
+              }`}
+            />
+          </div>
+          <div className="absolute bottom-2 right-6">
+            <div
+              className={`h-0.5 w-0.5 rounded-full transition-all duration-700 ${
+                theme === "dark" ? "bg-white/25" : "bg-orange-300/40"
+              }`}
+            />
+          </div>
+        </button>
       </div>
 
       {/* User Card */}
@@ -176,15 +231,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="fixed left-4 top-4 z-50 rounded-lg border border-gray-200 bg-white p-2 text-gray-700 shadow-lg transition-all duration-200 hover:bg-gray-50 active:scale-95 dark:border-white/10 dark:bg-[#0f1419] dark:text-white dark:hover:bg-white/5 lg:hidden"
-        aria-label="Open menu"
-      >
-        <Menu size={20} />
-      </button>
-
       {/* Mobile overlay */}
       <div
         className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
