@@ -211,6 +211,7 @@ export default function Sidebar() {
                 alt="Profile"
                 className="h-full w-full object-cover rounded-full"
               />
+              
             </div>
             <div className="flex-1 text-left">
               <p className="text-[12px] font-medium leading-tight text-gray-700 dark:text-gray-300">
