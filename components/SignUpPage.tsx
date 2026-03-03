@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { LuCheck, LuEye } from "react-icons/lu";
 import { FaApple, FaMeta, FaStar } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { RiEyeCloseLine } from "react-icons/ri";
 import Image from "next/image";
+import Link from "next/link";
+import {  MdOutlineDashboard } from "react-icons/md";
 
 const features = [
   "Effortlessly spider and map targets to uncover hidden security flaws",
@@ -42,20 +44,20 @@ export default function SignUpPage() {
         style={{
           width: "55%",
           background: `linear-gradient(to top,
-            #0aa68a 0%,
-            #0CC8A8 8%,
-            #0dba96 16%,
-            #3aaa5c 25%,
-            #8a9a10 33%,
-            #d4940c 40%,
-            #f59e0b 47%,
-            #ea7814 55%,
-            #dc5014 63%,
-            #c83414 72%,
-            #b91c1c 82%,
-            #8c1414 92%,
-            #5c0a0a 100%
-          )`,
+                        #0aa68a 0%,
+                        #0CC8A8 8%,
+                        #0dba96 16%,
+                        #3aaa5c 25%,
+                        #8a9a10 33%,
+                        #d4940c 40%,
+                        #f59e0b 47%,
+                        #ea7814 55%,
+                        #dc5014 63%,
+                        #c83414 72%,
+                        #b91c1c 82%,
+                        #8c1414 92%,
+                        #5c0a0a 100%
+                    )`,
           WebkitMaskImage:
             "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 30%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.85) 100%)",
           maskImage:
@@ -64,17 +66,31 @@ export default function SignUpPage() {
         }}
       />
 
-      {/* ── Logo ── */}
-    <div className="absolute left-5 top-5 z-20 flex items-center gap-2 sm:left-8 sm:top-8 lg:left-12 lg:top-10">
-      <Image
-        src={"/logo.png"}
-        width={24}
-        height={24}
-        alt="The Logo"
-        priority
-      />
-      <span className="text-lg font-bold tracking-tight text-white">aps</span>
-    </div>
+      {/* ── Header with Logo and Dashboard Button ── */}
+      <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12 lg:py-6">
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <Image
+            src={"/logo.png"}
+            width={24}
+            height={24}
+            alt="The Logo"
+            priority
+          />
+          <span className="text-lg font-bold tracking-tight text-white">
+            aps
+          </span>
+        </div>
+
+        {/* Dashboard Button */}
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2 bg-[#0CC8A8] rounded-3xl border-2 border-white px-4 py-1.5 text-[12px] font-black uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#ffffff] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
+        >
+          <MdOutlineDashboard />
+          Dashboard
+        </Link>
+      </div>
 
       {/* ── Main Content (YOUR EXACT UI) ── */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-335 items-center px-5 py-20 sm:px-8 lg:px-14">
@@ -148,7 +164,10 @@ export default function SignUpPage() {
 
             <form
               className="flex flex-col gap-3"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.location.href = "/dashboard";
+              }}
             >
               <input
                 type="text"
