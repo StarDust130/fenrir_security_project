@@ -16,62 +16,68 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#080808] font-(family-name:--font-inter)">
-      {/* ── Background Gradient Layer ── */}
-      {/* Teal glow — top-left, very subtle */}
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#030303] font-sans selection:bg-[#0CC8A8] selection:text-white">
+      {/* ── BACKGROUND ── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-[5%] -top-[10%] h-150 w-150 rounded-full opacity-100"
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "#060606" }}
+      />
+      {/* Subtle dark-teal wash on top-left */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0"
         style={{
+          width: "50%",
+          height: "50%",
           background:
-            "radial-gradient(circle, rgba(12,200,168,0.18) 0%, rgba(12,200,168,0.05) 40%, transparent 70%)",
+            "radial-gradient(ellipse at 0% 0%, rgba(12,200,168,0.06) 0%, transparent 70%)",
         }}
       />
-      {/* Bright teal-cyan hotspot — center-bottom */}
+      {/* Aurora band — VERTICAL on the RIGHT side, blurred, fades to the left */}
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-[5%] left-[30%] h-125 w-125 rounded-full opacity-100"
+        className="pointer-events-none absolute bottom-0 right-0 top-0"
         style={{
-          background:
-            "radial-gradient(circle, rgba(12,200,168,0.22) 0%, rgba(6,150,136,0.10) 45%, transparent 70%)",
-        }}
-      />
-      {/* Warm amber/orange glow — bottom center-right */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-[15%] left-[25%] h-175 w-200 rounded-full opacity-100"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(234,138,30,0.30) 0%, rgba(180,83,9,0.18) 40%, transparent 70%)",
-        }}
-      />
-      {/* Deep red glow — far bottom-right edge */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-[20%] -right-[5%] h-150 w-125 rounded-full opacity-100"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(185,28,28,0.35) 0%, rgba(127,29,29,0.15) 45%, transparent 70%)",
+          width: "55%",
+          background: `linear-gradient(to top,
+            #0aa68a 0%,
+            #0CC8A8 8%,
+            #0dba96 16%,
+            #3aaa5c 25%,
+            #8a9a10 33%,
+            #d4940c 40%,
+            #f59e0b 47%,
+            #ea7814 55%,
+            #dc5014 63%,
+            #c83414 72%,
+            #b91c1c 82%,
+            #8c1414 92%,
+            #5c0a0a 100%
+          )`,
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 30%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.85) 100%)",
+          maskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 30%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.85) 100%)",
+          filter: "blur(70px)",
         }}
       />
 
-      {/* ── Logo — absolute top-left on all screens ── */}
+      {/* ── Logo ── */}
       <div className="absolute left-5 top-5 z-20 flex items-center gap-2 sm:left-8 sm:top-8 lg:left-12 lg:top-10">
         <span className="block h-3.5 w-3.5 rounded-full border-[2.5px] border-[#0CC8A8] bg-[#0CC8A8] shadow-[0_0_6px_rgba(12,200,168,0.4)]" />
         <span className="text-lg font-bold tracking-tight text-white">aps</span>
       </div>
 
-      {/* ── Main Content ── */}
+      {/* ── Main Content (YOUR EXACT UI) ── */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-335 items-center px-5 py-20 sm:px-8 lg:px-14">
         {/* ━━ Left Side — desktop only ━━ */}
         <div
           className="hidden shrink-0 pr-16 text-white lg:block"
           style={{ width: "520px" }}
         >
-          {/* Spacer for logo above */}
           <div className="mb-0" />
 
-          {/* Headline — "Expert level Cybersecurity" on ONE line */}
           <h1 className="whitespace-nowrap text-[2.15rem] font-semibold leading-[1.2] tracking-[-0.02em] xl:text-[2.4rem]">
             Expert level Cybersecurity
             <br />
@@ -81,7 +87,6 @@ export default function SignUpPage() {
             </span>
           </h1>
 
-          {/* Features */}
           <div className="mt-8">
             <p className="mb-4 text-[13px] font-bold text-gray-400/80">
               What&apos;s included
@@ -102,7 +107,6 @@ export default function SignUpPage() {
             </ul>
           </div>
 
-          {/* Trustpilot */}
           <div className="mt-24">
             <div className="mb-0.5 flex items-center gap-1.5">
               <FaStar className="text-[#00B67A]" size={13} />
@@ -120,7 +124,6 @@ export default function SignUpPage() {
         {/* ━━ Right Side — Form Card ━━ */}
         <div className="mx-auto w-full max-w-95 sm:max-w-100 lg:mx-0 lg:ml-auto">
           <div className="rounded-2xl bg-white px-6 py-7 shadow-2xl shadow-black/50 sm:rounded-[22px] sm:px-7 sm:py-8">
-            {/* Header */}
             <div className="mb-5 text-center">
               <h2 className="text-[22px] font-bold text-gray-900 sm:text-2xl">
                 Sign up
@@ -136,7 +139,6 @@ export default function SignUpPage() {
               </p>
             </div>
 
-            {/* Form */}
             <form
               className="flex flex-col gap-3"
               onSubmit={(e) => e.preventDefault()}
@@ -157,7 +159,6 @@ export default function SignUpPage() {
                 className="h-10.5 w-full rounded-md border border-gray-200 bg-white px-3.5 text-[13px] text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#0CC8A8] focus:ring-2 focus:ring-[#0CC8A8]/20"
               />
 
-              {/* Password */}
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -180,7 +181,6 @@ export default function SignUpPage() {
                 </button>
               </div>
 
-              {/* Terms */}
               <label className="flex cursor-pointer items-start gap-2 pt-0.5">
                 <input
                   type="checkbox"
@@ -204,7 +204,6 @@ export default function SignUpPage() {
                 </span>
               </label>
 
-              {/* Submit */}
               <button
                 type="submit"
                 className="mt-1 h-10.5 w-full rounded-full bg-[#0CC8A8] text-[13px] font-bold text-white shadow-lg shadow-[#0CC8A8]/20 transition-colors hover:bg-[#0ab899] active:bg-[#099e85]"
@@ -213,7 +212,6 @@ export default function SignUpPage() {
               </button>
             </form>
 
-            {/* Social Logins */}
             <div className="mt-3.5 grid grid-cols-3 gap-2.5">
               <button
                 aria-label="Sign up with Apple"
