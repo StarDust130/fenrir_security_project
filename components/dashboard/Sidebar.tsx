@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
 import {
   LayoutDashboard,
@@ -15,7 +16,6 @@ import {
   Sun,
   Moon,
   X,
-  Sparkles,
 } from "lucide-react";
 
 /* ─── Event emitter so TopBar can open mobile sidebar ─── */
@@ -25,15 +25,10 @@ export function triggerOpenSidebar() {
 }
 
 const mainNav = [
-  {
-    label: "Dashboard",
-    icon: LayoutDashboard,
-    href: "/dashboard",
-    active: true,
-  },
-  { label: "Projects", icon: FolderKanban, href: "/projects", active: false },
-  { label: "Scans", icon: Radar, href: "/scans", active: false },
-  { label: "Schedule", icon: CalendarClock, href: "/schedule", active: false },
+  { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "Projects", icon: FolderKanban, href: "/projects" },
+  { label: "Scans", icon: Radar, href: "/scans" },
+  { label: "Schedule", icon: CalendarClock, href: "/schedule" },
 ];
 
 const bottomNav = [
@@ -57,6 +52,7 @@ function Tip({ text, children }: { text: string; children: React.ReactNode }) {
 
 export default function Sidebar() {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   /* Listen for TopBar hamburger clicks */
@@ -80,26 +76,29 @@ export default function Sidebar() {
 
       {/* Main Nav */}
       <nav className="flex-1 space-y-1 px-3">
-        {mainNav.map((item) => (
-          <Tip key={item.label} text={item.label}>
-            <Link
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
-                item.active
-                  ? "bg-[#0CC8A8] text-white shadow-md shadow-[#0CC8A8]/25"
-                  : "text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200"
-              }`}
-            >
-              <item.icon
-                size={18}
-                strokeWidth={item.active ? 2.2 : 1.8}
-                className={`transition-transform duration-200 ${!item.active ? "group-hover:scale-110" : ""}`}
-              />
-              {item.label}
-            </Link>
-          </Tip>
-        ))}
+        {mainNav.map((item) => {
+          const isActive = pathname.startsWith(item.href);
+          return (
+            <Tip key={item.label} text={item.label}>
+              <Link
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
+                  isActive
+                    ? "bg-[#0CC8A8] text-white shadow-md shadow-[#0CC8A8]/25"
+                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200"
+                }`}
+              >
+                <item.icon
+                  size={18}
+                  strokeWidth={isActive ? 2.2 : 1.8}
+                  className={`transition-transform duration-200 ${!isActive ? "group-hover:scale-110" : ""}`}
+                />
+                {item.label}
+              </Link>
+            </Tip>
+          );
+        })}
 
         {/* Divider */}
         <div className="my-4 h-px bg-gray-200 dark:bg-white/10" />
@@ -178,10 +177,7 @@ export default function Sidebar() {
               className={`flex items-center gap-1 text-[10px] leading-tight transition-colors duration-300 ${
                 theme === "dark" ? "text-indigo-400/70" : "text-amber-600/70"
               }`}
-            >
-              <Sparkles size={9} />
-              Tap to switch
-            </span>
+            ></span>
           </div>
 
           {/* Decorative dots */}
