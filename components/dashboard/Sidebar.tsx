@@ -67,12 +67,14 @@ export default function Sidebar() {
   const sidebarContent = (
     <div className="flex h-full flex-col border-r border-gray-200/60 bg-white text-gray-800 transition-colors duration-300 dark:border-white/5 dark:bg-[#0f1419] dark:text-white">
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-5 pt-5 pb-6">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0CC8A8] shadow-md shadow-[#0CC8A8]/30">
-          <span className="h-2.5 w-2.5 rounded-full bg-white dark:bg-[#0f1419]" />
-        </span>
-        <span className="text-lg font-bold tracking-tight">aps</span>
-      </div>
+      <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+        <div className="flex items-center gap-2.5 px-5 pt-5 pb-6 cursor-pointer">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0CC8A8] shadow-md shadow-[#0CC8A8]/30">
+            <span className="h-2.5 w-2.5 rounded-full bg-white dark:bg-[#0f1419]" />
+          </span>
+          <span className="text-lg font-bold tracking-tight">aps</span>
+        </div>
+      </Link>
 
       {/* Main Nav */}
       <nav className="flex-1 space-y-1 px-3">
