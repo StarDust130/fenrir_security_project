@@ -87,7 +87,7 @@ export default function SignUpPage() {
           href="/dashboard"
           className="flex items-center gap-2 bg-[#0CC8A8] rounded-3xl border-2 border-white px-4 py-1.5 text-[12px] font-black uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#ffffff] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
         >
-          <MdOutlineDashboard />
+          <MdOutlineDashboard size={15} />
           Dashboard
         </Link>
       </div>
